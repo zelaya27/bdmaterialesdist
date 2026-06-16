@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Lista Materiales</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="config.js"></script>
+
+  <style>
+    :root {
+      --bg:#101a24;
+      --card:#172636;
+      --card2:#1a2a3a;
+      --border:#3f5870;
+      --blue:#60a5fa;
+      --green:#27ae60;
+      --red:#e74c3c;
+      --yellow:#f59e0b;
+      --text:#ffffff;
+      --muted:#d8e2ee;
+      --input:#0d1720;
+    }
+
+    * { box-sizing:border-box; }
+
+    body {
+      margin:0;
+      min-height:100vh;
+      background:var(--bg);
+      color:var(--text);
+      font-family:'Segoe UI',Arial,sans-serif;
+      overflow-x:hidden;
+    }
+
+    header {
+      background:var(--card);
+      padding:15px;
+      border-bottom:1px solid var(--border);
+      position:sticky;
+      top:0;
+      z-index:30;
+    }
+
+    .title-row {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+
+    .btn-back {
+      background:rgba(231,76,60,.18);
+      color:#ff8a8a;
+      border:1px solid #ff6b6b;
+      padding:8px 13px;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:900;
+    }
+
+    h1 {
+      margin:0;
+      flex:1;
+      text-align:center;
+      font-size:20px;
+      font-weight:900;
+      letter-spacing:1px;
+    }
+
+    .logo-mini {
+      background:#fff;
+      padding:4px 8px;
+      border-radius:6px;
+      min-width:44px;
+    }
+
+    .logo-mini img {
+      height:30px;
+      display:block;
+    }
+
+    .container {
+      max-width:900px;
+      margin:0 auto;
+      padding:15px;
+      padding-bottom:35px;
+    }
+
+    .filters {
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:13px;
+      display:grid;
+      gap:10px;
+      margin-bottom:15px;
+    }
+
+    .search-box {
+      position:relative;
+    }
+
+    .search-box i {
+      position:absolute;
+      top:50%;
+      left:13px;
+      transform:translateY(-50%);
+      color:var(--blue);
+    }
+
+    input,
+    select,
+    textarea {
+      width:100%;
+      background:var(--input);
+      color:#ffffff;
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:11px 12px;
+      outline:none;
+      font-size:14px;
+      font-weight:800;
+    }
+
+    .search-box input {
+      padding-left:39px;
+    }
+
+    .filter-row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:9px;
+    }
+
+    .filter-row.full {
+      grid-template-columns:1fr;
+    }
+
+    .grid {
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+    }
+
+    @media(min-width:760px) {
+      .grid { grid-template-columns:repeat(2,1fr); }
+    }
+
+    .card {
+      background:var(--card2);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:15px;
+      box-shadow:0 4px 8px rgba(0,0,0,.24);
+      display:flex;
+      flex-direction:column;
+      gap:11px;
+    }
+
+    .card-header {
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      border-bottom:1px solid var(--border);
+      padding-bottom:10px;
+    }
+
+    .codigo {
+      color:#ffffff;
+      font-size:16px;
+      font-weight:900;
+    }
+
+    .foto-status {
+      width:38px;
+      height:38px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid #64748b;
+      color:#94a3b8;
+      background:#111827;
+    }
+
+    .foto-status.ok {
+      border-color:#2ecc71;
+      color:#2ecc71;
+      background:rgba(39,174,96,.14);
+      box-shadow:0 0 12px rgba(39,174,96,.35);
+    }
+
+    .nombre {
+      font-size:15px;
+      font-weight:900;
+      line-height:1.35;
+      color:#ffffff;
+    }
+
+    .body p {
+      margin:7px 0;
+      color:var(--muted);
+      font-size:14px;
+      display:flex;
+      gap:9px;
+      align-items:flex-start;
+    }
+
+    .body i {
+      color:var(--blue);
+      width:17px;
+      text-align:center;
+      margin-top:2px;
+    }
+
+    .body b {
+      color:#ffffff;
+    }
+
+    .footer {
+      display:flex;
+      justify-content:flex-end;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .btn {
+      background:transparent;
+      color:var(--blue);
+      border:1px solid var(--blue);
+      padding:8px 13px;
+      border-radius:20px;
+      cursor:pointer;
+      font-weight:900;
+      display:flex;
+      align-items:center;
+      gap:7px;
+    }
+
+    .btn:hover,
+    .btn:active {
+      background:var(--blue);
+      color:#05111f;
+    }
+
+    .btn.green {
+      color:#2ecc71;
+      border-color:#2ecc71;
+    }
+
+    .btn.green:hover,
+    .btn.green:active {
+      background:#2ecc71;
+      color:#05111f;
+    }
+
+    .btn.disabled {
+      color:#94a3b8;
+      border-color:#64748b;
+      opacity:.75;
+    }
+
+    .msg {
+      text-align:center;
+      color:var(--muted);
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:24px;
+      grid-column:1 / -1;
+      font-weight:800;
+    }
+
+    .modal-bg {
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.78);
+      z-index:100;
+      padding:18px;
+      overflow:auto;
+    }
+
+    .modal {
+      width:100%;
+      max-width:520px;
+      margin:20px auto;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:16px;
+    }
+
+    .modal h2 {
+      margin:0 0 14px;
+      font-size:20px;
+      border-bottom:1px solid var(--border);
+      padding-bottom:10px;
+    }
+
+    .field {
+      margin-bottom:11px;
+    }
+
+    .field label {
+      display:block;
+      font-weight:900;
+      font-size:13px;
+      margin-bottom:5px;
+      color:#ffffff;
+    }
+
+    .readonly {
+      background:#111d29;
+      color:#60a5fa;
+      font-weight:900;
+    }
+
+    .preview {
+      width:100%;
+      min-height:150px;
+      border:1px dashed var(--border);
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      background:#0d1720;
+      color:#94a3b8;
+      font-weight:900;
+      text-align:center;
+      padding:10px;
+    }
+
+    .preview img {
+      width:100%;
+      max-height:260px;
+      object-fit:contain;
+      display:block;
+    }
+
+    .modal-actions {
+      display:flex;
+      gap:10px;
+      justify-content:flex-end;
+      margin-top:15px;
+    }
+
+    .btn-modal {
+      border:none;
+      border-radius:10px;
+      padding:11px 15px;
+      cursor:pointer;
+      color:#ffffff;
+      font-weight:900;
+      min-width:110px;
+    }
+
+    .cancel { background:#34495e; }
+    .save { background:#27ae60; }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="title-row">
+    <button class="btn-back" onclick="location.href='index.html'">
+      <i class="fas fa-arrow-left"></i>
+    </button>
+
+    <h1>LISTA MATERIALES</h1>
+
+    <div class="logo-mini">
+      <img src="https://raw.githubusercontent.com/zelaya27/IMAGENES_AZ/main/UTCD%20Vertical.png" alt="Logo">
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="filters">
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input id="buscarTexto" placeholder="Buscar por código o nombre..." oninput="renderizar()">
+    </div>
+
+    <div class="filter-row">
+      <select id="limitSelector" onchange="renderizar()">
+        <option value="10" selected>10 registros</option>
+        <option value="20">20 registros</option>
+        <option value="50">50 registros</option>
+        <option value="ALL">Todos</option>
+      </select>
+
+      <select id="filtroFoto" onchange="renderizar()">
+        <option value="TODOS">Todas las fotos</option>
+        <option value="CON">Con foto</option>
+        <option value="SIN">Sin foto</option>
+      </select>
+    </div>
+
+    <div class="filter-row full">
+      <select id="filtroCategoria" onchange="renderizar()">
+        <option value="TODAS">Todas las categorías</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="contenedor" class="grid">
+    <div class="msg">Cargando materiales...</div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <h2><i class="fas fa-pen"></i> Editar material</h2>
+
+    <input type="hidden" id="editCodigo">
+
+    <div class="field">
+      <label>Código</label>
+      <input id="editCodigoView" class="readonly" readonly>
+    </div>
+
+    <div class="field">
+      <label>Material</label>
+      <input id="editNombre" class="readonly" readonly>
+    </div>
+
+    <div class="field">
+      <label>Categoría</label>
+      <input id="editCategoria" class="readonly" readonly>
+    </div>
+
+    <div class="field">
+      <label>Unidad</label>
+      <input id="editUnidad" class="readonly" readonly>
+    </div>
+
+    <div class="field">
+      <label>Observaciones</label>
+      <textarea id="editObservaciones" rows="4"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Imagen actual / nueva</label>
+      <div id="preview" class="preview">Sin imagen</div>
+    </div>
+
+    <div class="field">
+      <label>Cargar foto</label>
+      <input id="inputImagen" type="file" accept="image/*" onchange="previsualizarImagen()">
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-modal cancel" onclick="cerrarModal()">Cancelar</button>
+      <button class="btn-modal save" onclick="guardarMaterial()">
+        <i class="fas fa-save"></i> Guardar
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let materiales = [];
+  let categorias = [];
+  let materialActual = null;
+  let imagenBase64 = "";
+  let imagenNombre = "";
+  let imagenMimeType = "";
+
+  document.addEventListener("DOMContentLoaded", cargarMateriales);
+
+  async function cargarMateriales() {
+    try {
+      const resp = await fetch(CONFIG.URL_APPS_SCRIPT, {
+        method: "POST",
+        body: JSON.stringify({ action: "obtenerMateriales" })
+      });
+
+      const data = await resp.json();
+
+      if (data.status !== "Éxito") {
+        throw new Error(data.message || "No se pudo cargar materiales.");
+      }
+
+      materiales = data.materiales || [];
+      categorias = data.categorias || [];
+      cargarCategorias();
+      renderizar();
+
+    } catch (error) {
+      document.getElementById("contenedor").innerHTML =
+        '<div class="msg" style="color:#ff8a8a;">Error: ' + escaparHTML(error.message) + '</div>';
+    }
+  }
+
+  function cargarCategorias() {
+    const select = document.getElementById("filtroCategoria");
+    select.innerHTML = '<option value="TODAS">Todas las categorías</option>';
+
+    categorias.forEach(cat => {
+      const opt = document.createElement("option");
+      opt.value = cat;
+      opt.textContent = cat;
+      select.appendChild(opt);
+    });
+  }
+
+  function renderizar() {
+    const cont = document.getElementById("contenedor");
+    const texto = normalizar(document.getElementById("buscarTexto").value);
+    const cat = document.getElementById("filtroCategoria").value;
+    const foto = document.getElementById("filtroFoto").value;
+    const limit = document.getElementById("limitSelector").value;
+
+    let datos = materiales.filter(m => {
+      const coincideTexto =
+        normalizar(m.codigo).includes(texto) ||
+        normalizar(m.nombreMaterial).includes(texto);
+
+      const coincideCat = cat === "TODAS" || m.nombreTipoMaterial === cat;
+
+      const tieneFoto = String(m.urlImagen || "").trim() !== "";
+      const coincideFoto =
+        foto === "TODOS" ||
+        (foto === "CON" && tieneFoto) ||
+        (foto === "SIN" && !tieneFoto);
+
+      return coincideTexto && coincideCat && coincideFoto;
+    });
+
+    if (limit !== "ALL") {
+      datos = datos.slice(0, parseInt(limit, 10));
+    }
+
+    if (!datos.length) {
+      cont.innerHTML = '<div class="msg">No hay materiales para mostrar.</div>';
+      return;
+    }
+
+    cont.innerHTML = "";
+
+    datos.forEach(m => {
+      const tieneFoto = String(m.urlImagen || "").trim() !== "";
+
+      const card = document.createElement("div");
+      card.className = "card";
+
+      card.innerHTML = `
+        <div class="card-header">
+          <div class="codigo"><i class="fas fa-hashtag"></i> ${escaparHTML(m.codigo)}</div>
+          <div class="foto-status ${tieneFoto ? "ok" : ""}">
+            <i class="fas fa-camera"></i>
+          </div>
+        </div>
+
+        <div class="nombre">${escaparHTML(m.nombreMaterial)}</div>
+
+        <div class="body">
+          <p><i class="fas fa-layer-group"></i> <b>Categoría:</b> ${escaparHTML(m.nombreTipoMaterial || "N/A")}</p>
+          <p><i class="fas fa-ruler"></i> <b>Unidad:</b> ${escaparHTML(m.unidad || "N/A")}</p>
+          <p><i class="fas fa-note-sticky"></i> <b>Obs.:</b> ${escaparHTML(m.observaciones || "Sin observación")}</p>
+        </div>
+
+        <div class="footer">
+          <button class="btn ${tieneFoto ? "green" : "disabled"}" onclick="verFoto('${escaparAtributo(m.urlImagen)}')">
+            <i class="fas fa-image"></i> Foto
+          </button>
+
+          <button class="btn" onclick="abrirEditar('${escaparAtributo(m.codigo)}')">
+            <i class="fas fa-pen"></i> Editar
+          </button>
+        </div>
+      `;
+
+      cont.appendChild(card);
+    });
+  }
+
+  function abrirEditar(codigo) {
+    materialActual = materiales.find(m => String(m.codigo) === String(codigo));
+
+    if (!materialActual) {
+      alert("No se encontró el material.");
+      return;
+    }
+
+    imagenBase64 = "";
+    imagenNombre = "";
+    imagenMimeType = "";
+    document.getElementById("inputImagen").value = "";
+
+    document.getElementById("editCodigo").value = materialActual.codigo;
+    document.getElementById("editCodigoView").value = materialActual.codigo;
+    document.getElementById("editNombre").value = materialActual.nombreMaterial;
+    document.getElementById("editCategoria").value = materialActual.nombreTipoMaterial;
+    document.getElementById("editUnidad").value = materialActual.unidad;
+    document.getElementById("editObservaciones").value = materialActual.observaciones || "";
+
+    pintarPreview(materialActual.urlImagen);
+
+    document.getElementById("modalBg").style.display = "block";
+  }
+
+  function cerrarModal() {
+    document.getElementById("modalBg").style.display = "none";
+  }
+
+  function pintarPreview(url) {
+    const preview = document.getElementById("preview");
+    if (url) {
+      preview.innerHTML = `<img src="${escaparAtributo(url)}" alt="Imagen material">`;
+    } else {
+      preview.textContent = "Sin imagen";
+    }
+  }
+
+  function previsualizarImagen() {
+    const file = document.getElementById("inputImagen").files[0];
+    if (!file) return;
+
+    imagenNombre = file.name;
+    imagenMimeType = file.type || "image/jpeg";
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      const result = e.target.result;
+      imagenBase64 = String(result).split(",")[1] || "";
+      document.getElementById("preview").innerHTML = `<img src="${result}" alt="Nueva imagen">`;
+    };
+
+    reader.readAsDataURL(file);
+  }
+
+  async function guardarMaterial() {
+    if (!materialActual) return;
+
+    const btns = document.querySelectorAll(".btn-modal");
+    btns.forEach(b => b.disabled = true);
+
+    try {
+      const payload = {
+        action: "actualizarMaterial",
+        codigo: materialActual.codigo,
+        observaciones: document.getElementById("editObservaciones").value,
+        imagenBase64: imagenBase64,
+        imagenNombre: imagenNombre,
+        imagenMimeType: imagenMimeType
+      };
+
+      const resp = await fetch(CONFIG.URL_APPS_SCRIPT, {
+        method: "POST",
+        body: JSON.stringify(payload)
+      });
+
+      const data = await resp.json();
+
+      if (data.status !== "Éxito") {
+        throw new Error(data.message || "No se pudo guardar.");
+      }
+
+      alert("Material actualizado correctamente.");
+      cerrarModal();
+      await cargarMateriales();
+
+    } catch (error) {
+      alert("Error: " + error.message);
+    } finally {
+      btns.forEach(b => b.disabled = false);
+    }
+  }
+
+  function verFoto(url) {
+    if (!url) {
+      alert("Este material no tiene foto.");
+      return;
+    }
+    window.open(url, "_blank", "noopener");
+  }
+
+  function normalizar(v) {
+    return String(v || "").trim().toUpperCase();
+  }
+
+  function escaparHTML(v) {
+    return String(v || "")
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;")
+      .replace(/'/g,"&#039;");
+  }
+
+  function escaparAtributo(v) {
+    return escaparHTML(v).replace(/`/g,"&#096;");
+  }
+</script>
+</body>
+</html>
