@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Materiales UTCD</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg:#101a24;
+      --card:#172636;
+      --border:#3f5870;
+      --blue:#60a5fa;
+      --green:#27ae60;
+      --text:#ffffff;
+      --muted:#d8e2ee;
+    }
+
+    * { box-sizing:border-box; }
+
+    body {
+      margin:0;
+      min-height:100vh;
+      background:linear-gradient(160deg,#0b141d,#142536);
+      color:var(--text);
+      font-family:'Segoe UI',Arial,sans-serif;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+    }
+
+    .app {
+      width:100%;
+      max-width:430px;
+    }
+
+    .logo {
+      background:#ffffff;
+      width:92px;
+      margin:0 auto 16px;
+      padding:8px 12px;
+      border-radius:12px;
+      box-shadow:0 0 20px rgba(96,165,250,.25);
+    }
+
+    .logo img {
+      width:100%;
+      display:block;
+    }
+
+    h1 {
+      margin:0 0 6px;
+      text-align:center;
+      font-size:25px;
+      font-weight:900;
+      letter-spacing:1px;
+    }
+
+    .sub {
+      text-align:center;
+      color:var(--muted);
+      margin-bottom:22px;
+      font-size:14px;
+    }
+
+    .menu {
+      display:grid;
+      grid-template-columns:1fr;
+      gap:15px;
+    }
+
+    .card {
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:22px 18px;
+      text-align:center;
+      box-shadow:0 8px 18px rgba(0,0,0,.25);
+    }
+
+    .icon {
+      font-size:44px;
+      color:var(--blue);
+      margin-bottom:13px;
+    }
+
+    .card h2 {
+      margin:0 0 8px;
+      font-size:19px;
+      font-weight:900;
+    }
+
+    .card p {
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .btn {
+      width:100%;
+      border:none;
+      border-radius:13px;
+      padding:13px 16px;
+      font-size:15px;
+      font-weight:900;
+      cursor:pointer;
+      color:#ffffff;
+      background:var(--green);
+      box-shadow:0 0 14px rgba(39,174,96,.28);
+    }
+
+    .btn:hover,
+    .btn:active {
+      background:#f59e0b;
+      color:#1b1200;
+    }
+
+    .btn.secondary {
+      background:#2563eb;
+      box-shadow:0 0 14px rgba(37,99,235,.28);
+    }
+
+    .btn.secondary:hover,
+    .btn.secondary:active {
+      background:#f59e0b;
+      color:#1b1200;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <div class="logo">
+      <img src="https://raw.githubusercontent.com/zelaya27/IMAGENES_AZ/main/UTCD%20Vertical.png" alt="Logo">
+    </div>
+
+    <h1>MATERIALES UTCD</h1>
+    <div class="sub">Consulta, fotos y observaciones</div>
+
+    <div class="menu">
+      <div class="card">
+        <div class="icon"><i class="fas fa-mobile-screen-button"></i></div>
+        <h2>Lista de materiales</h2>
+        <p>Vista móvil con tarjetas, búsqueda y foto.</p>
+        <button class="btn" onclick="location.href='lista.html'">
+          <i class="fas fa-list"></i> ABRIR
+        </button>
+      </div>
+
+      <div class="card">
+        <div class="icon"><i class="fas fa-image"></i></div>
+        <h2>Panel de materiales</h2>
+        <p>Tabla con filtros, observaciones y carga de imagen.</p>
+        <button class="btn secondary" onclick="location.href='panel.html'">
+          <i class="fas fa-table"></i> ABRIR
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
